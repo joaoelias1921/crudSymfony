@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class VendedorController extends AbstractController
 {
 /**
-     * @Route("/vendedor", name="vendedor")
+     * @Route("/vendedor", name="vendedor_index")
      */
     public function index(): Response
     {
@@ -24,7 +24,7 @@ class VendedorController extends AbstractController
     }
 
     /**
-     * @Route("/vendedor/create", name="vendedor")
+     * @Route("/vendedor/create", name="vendedor_create")
      */
     public function create(Request $request): Response
     {
@@ -55,7 +55,7 @@ class VendedorController extends AbstractController
     }
 
     /**
-     * @Route("/vendedor/edit/{id}", name="edit")
+     * @Route("/vendedor/edit/{id}", name="vendedor_edit")
      */
     public function edit(Request $request, $id){
         $vendedor = $this->getDoctrine()->getRepository(Vendedor::class)->find($id);
@@ -85,7 +85,7 @@ class VendedorController extends AbstractController
     }
 
     /**
-     * @Route("/vendedor/delete{id}", name="delete")
+     * @Route("/vendedor/delete{id}", name="vendedor_delete")
      */
     public function delete($id){
         $vendedor = $this->getDoctrine()->getRepository(Vendedor::class)->find($id);

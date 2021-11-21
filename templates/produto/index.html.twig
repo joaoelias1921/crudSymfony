@@ -12,9 +12,9 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-dark text-white">
                         <div class="d-flex justify-content-between w-100">
-                            <span>Listagem de Produtos</span>   <!-- criar uma tela -->
+                            <h5>Listagem de Produtos</h5>   <!-- criar uma tela -->
                             <a href="{{ url('produto_create') }}" class="btn-primary btn-sm"> <!-- caminho do arquivo para esta tela, rota em web.php -> CargoController.php -> create; Laravel -->
                                 <i class="fa fa-plus"></i> Novo Produto  <!-- criar um botão -->
                             </a>
@@ -39,10 +39,10 @@
                                     <td>{{ produtos.descricao }}</td>
                                     <td>R${{ produtos.precoUnitario }} </td>
                                     <td class="text-center p-0 align-middle" width="70">
-                                        <a class="btn btn-primary btn-sm" href="{{ path('edit', {'id': produtos.id }) }}">Editar</a>
+                                        <a class="btn btn-primary btn-sm" href="{{ path('produto_edit', {'id': produtos.id }) }}">Editar</a>
                                     </td>
                                     <td class="text-center p-0 align-middle" width="70">
-                                        <a class="btn btn-danger btn-sm" href="{{ path('delete', {'id':produtos.id }) }}">Excluir</a>
+                                        <a class="btn btn-danger btn-sm" href="{{ path('produto_delete', {'id':produtos.id }) }}">Excluir</a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -51,6 +51,12 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-center">
+            <div class="container">
+                <a href="{{ url('home') }}" class="btn btn-outline-info btn-lg btn-block">Voltar</a>
             </div>
         </div>
     </div>

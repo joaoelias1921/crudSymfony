@@ -1,6 +1,6 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+home:
+    path: /
+    controller: App\Controller\HomeController::index
 
 cliente_index:
     path: /cliente
@@ -11,11 +11,11 @@ cliente_create:
     controller: App\Controller\ClienteController::create
 
 cliente_edit:
-    path: /cliente/edit
+    path: /cliente/edit/{id}
     controller: App\Controller\ClienteController::edit
 
 cliente_delete:
-    path: cliente/delete
+    path: /cliente/delete{id}
     controller: App\Controller\ClienteController::delete
 
 
@@ -28,11 +28,11 @@ produto_create:
     controller: App\Controller\ProdutoController::create
 
 produto_edit:
-    path: /produto/edit
+    path: /produto/edit/{id}
     controller: App\Controller\ProdutoController::edit
 
 produto_delete:
-    path: produto/delete
+    path: /produto/delete{id}
     controller: App\Controller\ProdutoController::delete
 
 
@@ -45,9 +45,9 @@ vendedor_create:
     controller: App\Controller\VendedorController::create
 
 vendedor_edit:
-    path: /vendedor/edit
+    path: /vendedor/edit/{id}
     controller: App\Controller\VendedorController::edit
 
 vendedor_delete:
-    path: vendedor/delete
+    path: /vendedor/delete{id}
     controller: App\Controller\VendedorController::delete

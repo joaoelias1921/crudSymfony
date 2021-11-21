@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crud Symfony - Home{% endblock %}
+
+{% block body %}
+    <style>
+        .btn-block {
+            color: lightblue;
+        }
+    </style>
+
+    <header>
+        <div class="container bg-dark">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-12">
+                    <br><br>
+                    <br><br>
+                    <h1 class="text-center" style="color: lightblue">CRUD Symfony</h1>
+                    </br>
+                    </hr>
+                </div>
+            </div>
+            <br></br>
+        </div>    
+    </header>
+    
+    <div class="container" style="background-color: lightgrey;">
+        <br>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12 text-center">
+                <h3>Bem-vindo! Escolha um dos CRUDs abaixo para interação:</h3>
+            </div>
+        </div>
+        </br>
+        </hr>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-12" style="height: 10vh;">
+                <a href="{{ url('cliente_index') }}" class="btn btn-dark btn-lg btn-block">Clientes</a>
+            </div>
+            <div class="col-md-12" style="height: 10vh;">
+                <a href="{{ url('produto_index') }}" class="btn btn-dark btn-lg btn-block">Produtos</a>
+            </div>
+            <div class="col-md-12" style="height: 10vh;">
+                <a href="{{ url('vendedor_index') }}" class="btn btn-dark btn-lg btn-block">Vendedores</a>
+            </div>
+        </div>
+        </hr>
+        <br>
+    </div>
+{% endblock %}
