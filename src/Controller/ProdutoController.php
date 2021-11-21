@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Produto;
+use App\Form\ProdutoType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Produto;
 
 class ProdutoController extends AbstractController
 {
@@ -14,31 +16,86 @@ class ProdutoController extends AbstractController
      */
     public function index(): Response
     {
+        $produtos = $this->getDoctrine()->getRepository(Produto::class)->findAll();
+
         return $this->render('produto/index.html.twig', [
-            'controller_name' => 'ProdutoController',
+            'lista' => $produtos
         ]);
     }
 
     /**
-     * @Route("/produto", name="create_produto")
+     * @Route("/produto/create", name="produto")
      */
-    public function createProduto(): Response
+    public function create(Request $request): Response
     {
-        // you can fetch the EntityManager via $this->getDoctrine()
-        // or you can add an argument to the action: createProduto(EntityManagerInterface $entityManager)
-        $entityManager = $this->getDoctrine()->getManager();
-
         $produto = new Produto();
-        $produto->setNome('Teclado');
-        $produto->setDescricao('Ergonômico e estiloso!');
-        $produto->setPrecoUnitario(1999);
 
-        // tell Doctrine you want to (eventually) save the produto (no queries yet)
-        $entityManager->persist($produto);
+        $form = $this->createForm(ProdutoType::class, $produto);
 
-        // actually executes the queries (i.e. the INSERT query)
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() armazena os valores inseridos, mas,
+            // a variável '$produto' original já foi atualizada
+            $produto = $form->getData();
+
+            // ... executa uma ação, como salvar o produto no BD
+            // por exemplo, se Produto é uma entity do Doctrine, então salve-a
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($produto);
+            $entityManager->flush();
+
+            $this->addFlash('notice', 'Dados salvos com sucesso!');
+
+            return $this->redirectToRoute('produto_index');
+        }
+
+        return $this->renderForm('produto/create.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/produto/edit/{id}", name="edit")
+     */
+    public function edit(Request $request, $id){
+        $produto = $this->getDoctrine()->getRepository(Produto::class)->find($id);
+
+        $form = $this->createForm(ProdutoType::class, $produto);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() armazena os valores inseridos, mas,
+            // a variável '$produto' original já foi atualizada
+            $produto = $form->getData();
+
+            // ... executa uma ação, como salvar o produto no BD
+            // por exemplo, se Produto é uma entity do Doctrine, então salve-a
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($produto);
+            $entityManager->flush();
+
+            $this->addFlash('notice', 'Dados atualizados com sucesso!');
+
+            return $this->redirectToRoute('produto_index');
+        }
+
+        return $this->renderForm('produto/edit.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/produto/delete{id}", name="delete")
+     */
+    public function delete($id){
+        $produto = $this->getDoctrine()->getRepository(Produto::class)->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($produto);
         $entityManager->flush();
 
-        return new Response('Novo produto salvo com id '.$produto->getId());
+        $this->addFlash('notice', 'Dados removidos com sucesso!');
+
+        return $this->redirectToRoute('produto_index');
     }
 }

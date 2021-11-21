@@ -34,11 +34,6 @@ class Vendedor
      */
     private $salario;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Venda::class, mappedBy="Vendedor_id")
-     */
-    private $getVendas;
-
     public function __construct()
     {
         $this->getVendas = new ArrayCollection();
@@ -81,36 +76,6 @@ class Vendedor
     public function setSalario(float $salario): self
     {
         $this->salario = $salario;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Venda[]
-     */
-    public function getGetVendas(): Collection
-    {
-        return $this->getVendas;
-    }
-
-    public function addGetVenda(Venda $getVenda): self
-    {
-        if (!$this->getVendas->contains($getVenda)) {
-            $this->getVendas[] = $getVenda;
-            $getVenda->setVendedorId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGetVenda(Venda $getVenda): self
-    {
-        if ($this->getVendas->removeElement($getVenda)) {
-            // set the owning side to null (unless already changed)
-            if ($getVenda->getVendedorId() === $this) {
-                $getVenda->setVendedorId(null);
-            }
-        }
 
         return $this;
     }

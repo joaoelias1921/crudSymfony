@@ -1,3 +1,53 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+cliente_index:
+    path: /cliente
+    controller: App\Controller\ClienteController::index
+
+cliente_create:
+    path: /cliente/create
+    controller: App\Controller\ClienteController::create
+
+cliente_edit:
+    path: /cliente/edit
+    controller: App\Controller\ClienteController::edit
+
+cliente_delete:
+    path: cliente/delete
+    controller: App\Controller\ClienteController::delete
+
+
+produto_index:
+    path: /produto
+    controller: App\Controller\ProdutoController::index
+
+produto_create:
+    path: /produto/create
+    controller: App\Controller\ProdutoController::create
+
+produto_edit:
+    path: /produto/edit
+    controller: App\Controller\ProdutoController::edit
+
+produto_delete:
+    path: produto/delete
+    controller: App\Controller\ProdutoController::delete
+
+
+vendedor_index:
+    path: /vendedor
+    controller: App\Controller\VendedorController::index
+
+vendedor_create:
+    path: /vendedor/create
+    controller: App\Controller\VendedorController::create
+
+vendedor_edit:
+    path: /vendedor/edit
+    controller: App\Controller\VendedorController::edit
+
+vendedor_delete:
+    path: vendedor/delete
+    controller: App\Controller\VendedorController::delete

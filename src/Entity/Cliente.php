@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ClienteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,11 +34,6 @@ class Cliente
      * @ORM\Column(type="string", length=14, nullable=true)
      */
     private $telefone;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Venda::class, mappedBy="Cliente_id")
-     */
-    private $getCompras;
 
     public function __construct()
     {
@@ -81,36 +77,6 @@ class Cliente
     public function setTelefone(?string $telefone): self
     {
         $this->telefone = $telefone;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Venda[]
-     */
-    public function getGetCompras(): Collection
-    {
-        return $this->getCompras;
-    }
-
-    public function addGetCompra(Venda $getCompra): self
-    {
-        if (!$this->getCompras->contains($getCompra)) {
-            $this->getCompras[] = $getCompra;
-            $getCompra->setClienteId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGetCompra(Venda $getCompra): self
-    {
-        if ($this->getCompras->removeElement($getCompra)) {
-            // set the owning side to null (unless already changed)
-            if ($getCompra->getClienteId() === $this) {
-                $getCompra->setClienteId(null);
-            }
-        }
 
         return $this;
     }

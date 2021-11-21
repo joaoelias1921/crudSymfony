@@ -1,20 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VendedorController!{% endblock %}
+{% block title %}CRUD Symfony - Vendedores{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success mt-4 mb-b">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Listagem de Vendedores</span>   <!-- criar uma tela -->
+                            <a href="{{ url('vendedor_create') }}" class="btn-primary btn-sm"> <!-- caminho do arquivo para esta tela, rota em web.php -> CargoController.php -> create; Laravel -->
+                                <i class="fa fa-plus"></i> Novo Vendedor  <!-- criar um botão -->
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Nome</td>
+                                    <td>CPF</td>
+                                    <td>Salário (R$)</td>
+                                    <td colspan="4" class="text-center">Ações</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for vendedores in lista %}<!-- vem da function index no Controller -->
+                                <tr>
+                                    <th scope="row">{{ vendedores.id }}</th>
+                                    <td>{{ vendedores.nome }}</td>
+                                    <td>{{ vendedores.cpf }}</td>
+                                    <td>R${{ vendedores.salario }} </td>
+                                    <td class="text-center p-0 align-middle" width="70">
+                                        <a class="btn btn-primary btn-sm" href="{{ path('edit', {'id': vendedores.id }) }}">Editar</a>
+                                    </td>
+                                    <td class="text-center p-0 align-middle" width="70">
+                                        <a class="btn btn-danger btn-sm" href="{{ path('delete', {'id':vendedores.id }) }}">Excluir</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/crudSymfony/src/Controller/VendedorController.php'|file_link(0) }}">src/Controller/VendedorController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/crudSymfony/templates/vendedor/index.html.twig'|file_link(0) }}">templates/vendedor/index.html.twig</a></code></li>
-    </ul>
-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
